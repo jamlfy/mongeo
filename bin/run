@@ -6,7 +6,7 @@ var path 	= require('path'),
 	program = require('commander'),
 	_ 		= require('underscore'), 
 	os 		= require('os'),
-	lib 	= require( path.join(dir, 'lib' ) ),
+	fns 	= require( path.join(dir, 'lib', 'fns.js' ) ),
 	config 	= require( path.join( dir, 'package.json') );
 
 program.name = config.name ;
@@ -15,36 +15,32 @@ program.version( config.version );
  * Inicia todo
  */
 program
-	.command('install')
-	.description( "Install de packegt IPs" )
+	.description( config.description )
 	.option('-d, --db [db]', 'Name of db')
 	.option('-h, --host [host]', 'IP for the mongoDB')
 	.option('-p, --port [port]', 'Port for the mongoDB')
 	.option('-u, --url [url]', 'Url to download the CVS' )
+	.option('-n, --nick [nick]', 'Username for database' )
+	.option('-w, --password [password]', 'Password for database' )
 	.option('-m, --multi [multi]', 'Multiply servers mongo' )
-	.option('-i, --divsor [divisor]', 'Divisor entre valores', utils.orden )
+	.option('-i, --divsor [divisor]', 'Divisor entre valores' )
 	.action( function( options ){
 		database = !options.multi ? utils.url( {
-				type : 'mongo',
 				host : options.host || false,
-				port : options.port || 1324123,
-				path : options.db
+				port : options.port || 27017,
+				user : _super.nick || false,
+				pass : _super.password || false,
+				path : options.db || 'test'
+				type : 'mongo'
 			}) : options.multi;
-		mongeo.download( options.url || config.download, function (err, path) {
+		fns.existAndDownload( options.url || config.download, function (err, path) {
 			if(err)
 				uitls.console(err, path);
-			mongeo.update(path, database, options.orden || utils.orden() , options.divsor || '", "', function(err, doc){
+			fns.update(path, database, utils.orden( options.orden ) , options.divsor || '", "', function(err, doc){
 				console.log(doc);
 				process.exit(this);
 			});
 		});
 	});
-program
-	.command('express')
-	.description( 'Install the plugin in expressjs' )
-	.option('-p, --path [path]', 'The path')
-	.action( function( options ){
-		
-		});
-	});
+
 program.parse(process.argv);
