@@ -1,0 +1,24 @@
+{
+	"name": "mongeo",
+	"version": "0.0.2",
+	"description": "This is a script that generates a mongoDB the location of the IP.",
+	"author": "Alejo Next",
+	"preferGlobal": "true", 
+	"dependencies": {
+		"commander": "0.5.x",
+		"mkdirp": "0.2.x"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:alejonext/mongeo.git"
+	},
+	"bin": {
+		"mongeo": "./bin/run"
+	},
+	"engines": {
+		"node": ">=0.8.6",
+		"npm": ">=1.1.59",
+		"mongo": ">=2.0.6."
+	},
+	"main": "./lib/mongeo"
+}

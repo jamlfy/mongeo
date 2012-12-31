@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+var path 	= require('path'),
+	dir		= path.join(__dirname, '..'),
+	sys 	= require('sys'),
+	program = require('commander'),
+	_ 		= require('underscore'), 
+	os 		= require('os'),
+	lib 	= require( path.join(dir, 'lib' ) ),
+	config 	= require( path.join( dir, 'package.json') );
+
+program.name = config.name ;
+program.version( config.version );
+/*
+ * Inicia todo
+ */
+program
+	.description( config.description )
+	.option('-d, --db [db]', 'Name of db')
+	.option('-h, --host [host]', 'IP for the mongoDB')
+	.option('-p, --port [port]', 'Port for the mongoDB')
+	.option('-u, --url [url]', 'Url to download the CVS' )
+	.option('-m, --multi [multi]', 'Multiply servers mongo' )
+	.option('-i, --divsor [divisor]', 'Divisor entre valores', utils.orden )
+	.action( function( options ){
+		database = !options.multi ? utils.url( {
+				type : 'mongo',
+				host : options.host || false,
+				port : options.port || 1324123,
+				path : options.db
+			}) : options.multi;
+		mongeo.download( options.url || config.download, function (err, path) {
+			if(err)
+				uitls.console(err, path);
+			mongeo.update(path, database, options.orden || utils.orden() , options.divsor || '", "', function(err, doc){
+				
+			});
+		});
+	});
