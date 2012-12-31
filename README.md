@@ -36,7 +36,7 @@ Exiten default Requerde that certain parameters. In 'http' default unload the 'c
 
 The method for detecting the fields is by 'splitter'. the method of writing is so.
 
-	id,countries,city,lang,lat,IPv4From,IPv4To,IPv6From,IPv6To
+	--splitter id,countries,city,lang,lat,IPv4From,IPv4To,IPv6From,IPv6To
 
 Remember to separate them by commas.
 
@@ -48,7 +48,7 @@ Run for install in the app
 
 ### Configure
 
-'''js
+```
 //Configure
 var mongeo = new require('mongeo')({
 		db : 'MyDB',
@@ -59,11 +59,10 @@ var mongeo = new require('mongeo')({
 });
 
 //	OR in array
-
 var mongeo = new require('mongeo')([ 
-	'mongodb://user:pass@localhost:port/database', 
-	'mongodb://anotherhost:port', 
-	'mongodb://yetanother:port' ]);
+	'mongodb://user:pass@localhost:port/database', //Conections Database 
+	'mongodb://anotherhost:port',  
+	'mongodb://yetanother:port' ]); 
 
 //	OR in  a String
 var mongeo = new require('mongeo')( 'mongodb://user:pass@localhost:port/database' );
@@ -71,15 +70,12 @@ var mongeo = new require('mongeo')( 'mongodb://user:pass@localhost:port/database
 //	OR in nothing
 var mongeo = new require('mongeo')( );
 
-'''
+```
 If you use anything that reminds serara database 'test' and a local conectactara 'localhost'. With default settings mongoDB.
 
 ### Express
-'''js
+```javascript
 var express = require('express');
-
-//Configure
-
 var app = express();
 
 app.configure(function(){
@@ -89,30 +85,24 @@ app.configure(function(){
 	app.use(app.router);
 	// Your configuration
 });
-'''
+```
 
 ### Connect
-'''js
-var connect = require('connect')
-  , http = require('http');
+```javascript
+var connect = require('connect');
 
 var app = connect()
-  .use(connect.favicon())
-  .use(connect.logger('dev'))
-  .use(connect.static('public'))
-  .use(connect.directory('public'))
-  .use(connect.cookieParser())
-  .use(mongeo.connect) //Here!!!
-  .use(connect.session({ secret: 'my secret here' }))
-  .use(function(req, res){
-    res.end('Hello from Connect!\n');
-  });
-
-http.createServer(app).listen(3000);
-'''
+	.use(connect.favicon())
+	.use(connect.logger('dev'))
+	.use(connect.cookieParser())
+	.use(mongeo.connect) //Here!!!
+	.use(function(req, res){
+		res.end('Hello from MonGeo!\n' + req.geo );
+	});
+```
 ### Socket.IO
-'''js
+```javascript
 io.configure(function (){
-  io.set('authorization', mongo.socketio);
+	io.set('authorization', mongo.socketio);
 });
-'''
+```
