@@ -7,7 +7,9 @@ Installation is in the system, so
 
 	[sudo] npm install -g mongeo
 
-	mongeo
+These options will give you the help
+
+	$ mongeo --help
 		-d --db [db]		Name of db
 		-h --host [host]	IP for the mongoDB
 		-p --port [port]	Port for the mongoDB
