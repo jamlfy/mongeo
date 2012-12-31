@@ -20,7 +20,7 @@ Installation is in the system, so
 ### DBs and connections
 Place all data from their databases 
 
-	mongo --db MyDB --host 127.0.0.0 --user MyUser --password MyPassword
+	--db MyDB --host 127.0.0.0 --user MyUser --password MyPassword
 
 Remember that there are certain parameters default
 
@@ -48,7 +48,7 @@ Run for install in the app
 
 ### Configure
 
-```
+```js
 //Configure
 var mongeo = new require('mongeo')({
 		db : 'MyDB',
@@ -69,7 +69,6 @@ var mongeo = new require('mongeo')( 'mongodb://user:pass@localhost:port/database
 
 //	OR in nothing
 var mongeo = new require('mongeo')( );
-
 ```
 If you use anything that reminds serara database 'test' and a local conectactara 'localhost'. With default settings mongoDB.
 
