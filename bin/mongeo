@@ -34,7 +34,7 @@ program
 				user : _super.nick || false,
 				pass : _super.password || false,
 				path : options.db || config.get('db'),
-				type : config.get('type')
+				type : config.get('type'),
 			}) : options.multi;
 		fns.existAndDownload( utils.isLocal( options.url || config.get("download") ), options.url || config.get("download"), function (err, path) {
 			if(err)

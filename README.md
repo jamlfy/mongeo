@@ -28,15 +28,15 @@ Remember that there are certain parameters default
 
 	--host localhost --port 27017
 
-When using '- multi' should be aware that you must enter either the url of connection to servers so mongo.
+When using `- multi` should be aware that you must enter either the url of connection to servers so mongo.
 
 	--multi mongodb://user:pass@localhost:port/database,mongodb://anotherhost:port,mongodb://yetanother:port
 
 ### Download Package
 
-Exiten default Requerde that certain parameters. In 'http' default unload the 'cvs', to download all files must be in 'cvs'. You can also upload local files to the database, be sure to attach the 'file :/ /' and the folder where
+Exiten default Requerde that certain parameters. In `http` default unload the `cvs` or text plain, to download all files must be in `cvs`. You can also upload local files to the database, be sure to attach the `~/' and the folder where
 
-The method for detecting the fields is by 'splitter'. the method of writing is so.
+The method for detecting the fields is by `splitter`. the method of writing is so.
 
 	--splitter id,countries,city,lang,lat,IPv4From,IPv4To,IPv6From,IPv6To
 
@@ -72,7 +72,7 @@ var mongeo = new require('mongeo')( 'mongodb://user:pass@localhost:port/database
 //	OR in nothing
 var mongeo = new require('mongeo')( );
 ```
-If you use anything that reminds serara database 'test' and a local conectactara 'localhost'. With default settings mongoDB.
+If you use anything that reminds serara database `test` and a local conectactara `localhost`. With default settings mongoDB.
 
 ### Express
 ```javascript
