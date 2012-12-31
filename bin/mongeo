@@ -23,9 +23,6 @@ program
 	.option('-w, --pass [pass]', 'Password for database' )
 	.option('-m, --multi [multi]', 'Multiply servers mongo' )
 
-	//Data Base get
-	.option('-t, --http [http]', 'Url to download the CVS' )
-	.option('-s, --splitter [splitter]', 'Divisor entre valores' )
 	.parse(process.argv);
 
 	//Acionar
@@ -37,11 +34,6 @@ database = !program.multi ? utils.url( {
 		path : program.db || config.get('db'),
 		type : config.get('type'),
 	}) : program.multi;
-fns.existAndDownload( utils.isUrl( program.url ), function (err, path) {
-	if(err)
-		uitls.console(err, path);
-		fns.update(path, database, utils.orden( program.splitter ) , program.splitter || config.get('divisor'), function(err, doc){
-			uitls.console(err, doc);
-		});
+fns.update(path.join( dir, 'lib' config.get('file')), database, utils.orden( program.splitter ) , config.get('divisor'), function(err, doc){
+		uitls.console(err, doc);
 	});
-;
