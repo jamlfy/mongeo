@@ -26,14 +26,21 @@ program
 	.parse(process.argv);
 
 	//Acionar
+
 database = !program.multi ? utils.url( {
-		host : program.host || config.get('host'),
-		port : program.port || config.get('port'),
-		user : program.nick || false,
-		pass : program.password || false,
-		path : program.db || config.get('db'),
-		type : config.get('type'),
+		host : program.host || config['host'],
+		port : program.port || config['port'],
+		user : program.user || false,
+		pass : program.pass || false,
+		path : program.db || config['db'],
+		type : config['type'],
 	}) : program.multi;
-fns.update(path.join( dir, 'lib' config.get('file')), database, utils.orden( program.splitter ) , config.get('divisor'), function(err, doc){
+
+fns.update(
+	path.join( dir, 'lib', config['file'] ), 
+	database, 
+	config['fiels'].split( ',' ),
+	config['divisor'], 
+	function(err, doc){
 		uitls.console(err, doc);
 	});
