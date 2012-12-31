@@ -1,24 +1,27 @@
 {
 	"name": "mongeo",
-	"version": "0.0.2",
+	"version": "0.0.6-Beta",
+	"public" : true,
 	"description": "This is a script that generates a mongoDB the location of the IP.",
-	"author": "Alejo Next",
-	"preferGlobal": "true", 
+	"author": "Alejo Next <alejonext@gmail.com>",
+	"keywords": ["geo", "ip", "mongodb", "mongo", "express", "connect", "socketio"],
+	"license": "LGP",
 	"dependencies": {
 		"commander": "0.5.x",
-		"mkdirp": "0.2.x"
+		"underscore" : "x",
+		"mongoose" : "x",
+		"configurable" : "x"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:alejonext/mongeo.git"
 	},
 	"bin": {
-		"mongeo": "./bin/run"
+		"mongeo": "./bin/mongeo"
 	},
 	"engines": {
-		"node": ">=0.8.6",
-		"npm": ">=1.1.59",
-		"mongo": ">=2.0.6."
+		"node": ">=0.8.16",
+		"npm": ">=1.1.69"
 	},
 	"main": "./lib/mongeo"
 }

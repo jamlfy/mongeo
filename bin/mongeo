@@ -2,41 +2,44 @@
 
 var path 	= require('path'),
 	dir		= path.join(__dirname, '..'),
-	sys 	= require('sys'),
 	program = require('commander'),
 	_ 		= require('underscore'), 
-	os 		= require('os'),
 	fns 	= require( path.join(dir, 'lib', 'fns.js' ) ),
-	config 	= require( path.join( dir, 'package.json') );
+	config 	= require( path.join(dir, 'lib', 'config.js' ) ),
+	data 	= require( path.join(dir, 'package.json') );
 
-program.name = config.name ;
-program.version( config.version );
-/*
- * Inicia todo
- */
+program.name = data.name ;
+program.version( data.version );
+
 program
-	.description( config.description )
+	.description( data.description )
+
+	//Data Base put
 	.option('-d, --db [db]', 'Name of db')
 	.option('-h, --host [host]', 'IP for the mongoDB')
 	.option('-p, --port [port]', 'Port for the mongoDB')
-	.option('-u, --url [url]', 'Url to download the CVS' )
-	.option('-n, --nick [nick]', 'Username for database' )
+	.option('-u, --username [nick]', 'Username for database' )
 	.option('-w, --password [password]', 'Password for database' )
 	.option('-m, --multi [multi]', 'Multiply servers mongo' )
+
+	//Data Base get
+	.option('-t, --http [http]', 'Url to download the CVS' )
 	.option('-i, --divsor [divisor]', 'Divisor entre valores' )
+
+	//Acionar
 	.action( function( options ){
 		database = !options.multi ? utils.url( {
-				host : options.host || false,
-				port : options.port || 27017,
+				host : options.host || config.get('host'),
+				port : options.port || config.get('port'),
 				user : _super.nick || false,
 				pass : _super.password || false,
-				path : options.db || 'test'
-				type : 'mongo'
+				path : options.db || config.get('db')
+				type : config.get('type')
 			}) : options.multi;
-		fns.existAndDownload( options.url || config.download, function (err, path) {
+		fns.existAndDownload( utils.isLocal( options.url || config.get("download") ), options.url || config.get("download"), function (err, path) {
 			if(err)
 				uitls.console(err, path);
-			fns.update(path, database, utils.orden( options.orden ) , options.divsor || '", "', function(err, doc){
+			fns.update(path, database, utils.orden( options.orden ) , options.divsor || config.get('divisor'), function(err, doc){
 				console.log(doc);
 				process.exit(this);
 			});
