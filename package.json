@@ -1,6 +1,6 @@
 {
 	"name": "mongeo",
-	"version": "0.0.7-Beta",
+	"version": "0.0.8-Beta",
 	"public" : true,
 	"description": "This is a script that generates a mongoDB the location of the IP.",
 	"author": "Alejo Next <alejonext@gmail.com>",

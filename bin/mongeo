@@ -6,6 +6,7 @@ var path 	= require('path'),
 	_ 		= require('underscore'), 
 	fns 	= require( path.join(dir, 'lib', 'fns.js' ) ),
 	config 	= require( path.join(dir, 'lib', 'config.js' ) ),
+	utils 	= require( path.join(dir, 'lib', 'utils.js' ) ),
 	data 	= require( path.join(dir, 'package.json') );
 
 program.name = data.name ;
@@ -25,24 +26,22 @@ program
 	//Data Base get
 	.option('-t, --http [http]', 'Url to download the CVS' )
 	.option('-s, --splitter [splitter]', 'Divisor entre valores' )
+	.parse(process.argv);
 
 	//Acionar
-	.action( function( options ){
-		database = !options.multi ? utils.url( {
-				host : options.host || config.get('host'),
-				port : options.port || config.get('port'),
-				user : _super.nick || false,
-				pass : _super.password || false,
-				path : options.db || config.get('db'),
-				type : config.get('type'),
-			}) : options.multi;
-		fns.existAndDownload( utils.isLocal( options.url || config.get("download") ), options.url || config.get("download"), function (err, path) {
-			if(err)
-				uitls.console(err, path);
-			fns.update(path, database, utils.orden( options.splitter ) , options.splitter || config.get('divisor'), function(err, doc){
-				uitls.console(err, doc);
-			});
+database = !program.multi ? utils.url( {
+		host : program.host || config.get('host'),
+		port : program.port || config.get('port'),
+		user : program.nick || false,
+		pass : program.password || false,
+		path : program.db || config.get('db'),
+		type : config.get('type'),
+	}) : program.multi;
+fns.existAndDownload( utils.isUrl( program.url ), function (err, path) {
+	if(err)
+		uitls.console(err, path);
+		fns.update(path, database, utils.orden( program.splitter ) , program.splitter || config.get('divisor'), function(err, doc){
+			uitls.console(err, doc);
 		});
 	});
-
-program.parse(process.argv);
+;
