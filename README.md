@@ -87,12 +87,9 @@ app.configure(function(){
 var connect = require('connect');
 
 var app = connect()
-	.use(connect.favicon())
-	.use(connect.logger('dev'))
-	.use(connect.cookieParser())
 	.use(mongeo.connect) //Here!!!
 	.use(function(req, res){
-		res.end('Hello from MonGeo!\n' + req.geo );
+		res.end('Hello from MonGeo!\n' );
 	});
 ```
 ### Socket.IO
