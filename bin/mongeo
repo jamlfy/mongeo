@@ -21,6 +21,9 @@ program
 	.option('-p, --port [port]', 'Port for the mongoDB')
 	.option('-u, --user [user]', 'Username for database' )
 	.option('-w, --pass [pass]', 'Password for database' )
+	.option('-g, --geoip [collection]', 'Name de collection for the Ip' )
+	.option('-c, --city [collection]', 'Name de collection for the citys' )
+	.option('-o, --country [collection]', 'Name de collection for the countrys' )
 	.option('-m, --multi [multi]', 'Multiply servers mongo' )
 
 	.parse(process.argv);

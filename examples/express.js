@@ -1,6 +1,15 @@
 var express = require('express'),
 	http = require('http'),
-	mongeo = new require('mongeo')();
+	mongeo = new require('mongeo')({
+		host : 'myHost.mydomain.com',
+		port : 8080,
+		username : 'MyUser',
+		password : 'MyPaSsWoRd',
+		db : 'myDB',
+		country : 'MyCountrys',
+		city : 'MyCitys',
+		geoip : 'geoip'
+	});
 
 var app = express();
 
@@ -10,7 +19,7 @@ app.configure(function(){
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-	app.use(mongeo.express);
+	app.use(mongeo.express());
 	app.use(app.router);
 });
 

@@ -3,11 +3,11 @@
  */
 
 var connect = require('connect'),
-	mongeo = new require('mongeo')( );;
+	mongeo = new require('mongeo')( 'mongodb://localhost/Hello' ); //Local DB
 
 connect()
 	.use(connect.bodyParser())
-	.use(mongeo.connect)
+	.use(mongeo.connect())
 	.use(hello)
 	.listen(3000);
 
