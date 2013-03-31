@@ -1,15 +1,27 @@
 var express = require('express'),
 	http = require('http'),
 	mongeo = new require('mongeo')({
-		host : 'myHost.mydomain.com',
-		port : 8080,
-		username : 'MyUser',
-		password : 'MyPaSsWoRd',
-		db : 'myDB',
-		country : 'MyCountrys',
-		city : 'MyCitys',
-		geoip : 'geoip'
-	});
+	"db": [
+		{
+			"host": "localhost",
+			"port": 27017,
+			"path": "test",
+			"type": "mongodb"
+		},{
+			"host": "anotherHost",
+			"port": 27017,
+			"path": "test",
+			"user": "user",
+			"pass": "password",
+			"type": "mongodb"
+		},
+		"mongodb://user:pass@localhost:port/database",
+		"mongodb://user:pass@localhost:port/database,mongodb://anotherhost:port,mongodb://yetanother:port"
+	],
+	"geoip": "geoip",
+	"countries": "countries",
+	"city": "city"
+});
 
 var app = express();
 
@@ -19,7 +31,7 @@ app.configure(function(){
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-	app.use(mongeo.express());
+	app.use(mongeo.express('meGeo'));
 	app.use(app.router);
 });
 
@@ -28,7 +40,7 @@ app.configure('development', function(){
 });
 
 app.get('/', function(res, req){
-	res.send( "Hello I'am in" + JSON.stringify(req.geo) );
+	res.send( "Hello I'am in " + JSON.stringify(req['meGeo']) );
 });
 
 http.createServer(app).listen(app.get('port'), function(){

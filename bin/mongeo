@@ -3,10 +3,6 @@
 var path 	= require('path'),
 	dir		= path.join(__dirname, '..'),
 	program = require('commander'),
-	_ 		= require('underscore'), 
-	fns 	= require( path.join(dir, 'lib', 'fns.js' ) ),
-	config 	= require( path.join(dir, 'lib', 'config.js' ) ),
-	utils 	= require( path.join(dir, 'lib', 'utils.js' ) ),
 	data 	= require( path.join(dir, 'package.json') );
 
 program.name = data.name ;
@@ -17,33 +13,13 @@ program
 
 	//Data Base put
 	.option('-d, --db [db]', 'Name of db')
-	.option('-h, --host [host]', 'IP for the mongoDB')
-	.option('-p, --port [port]', 'Port for the mongoDB')
-	.option('-u, --user [user]', 'Username for database' )
-	.option('-w, --pass [pass]', 'Password for database' )
-	.option('-g, --geoip [collection]', 'Name de collection for the Ip' )
-	.option('-c, --city [collection]', 'Name de collection for the citys' )
-	.option('-o, --country [collection]', 'Name de collection for the countrys' )
-	.option('-m, --multi [multi]', 'Multiply servers mongo' )
+	.option('-j, --json [path]', 'The configuration in json' )
+	.option('-u, --url [url]', 'Url width download de info')
 
 	.parse(process.argv);
 
-	//Acionar
-
-database = !program.multi ? utils.url( {
-		host : program.host || config['host'],
-		port : program.port || config['port'],
-		user : program.user || false,
-		pass : program.pass || false,
-		path : program.db || config['db'],
-		type : config['type'],
-	}) : program.multi;
-
-fns.update(
-	path.join( dir, 'lib', config['file'] ), 
-	database, 
-	config['fiels'].split( ',' ),
-	config['divisor'], 
-	function(err, doc){
-		uitls.console(err, doc);
-	});
+require( path.join(dir, 'lib', 'fns.js' ) )
+	.update( 
+		require( path.join(dir, 'lib', 'config.js' ) )( 
+			require( path.resuleve( program.json ) ) ), //TODO Colocar esto bien
+		program.url || 'Aqui esta la URL' );
